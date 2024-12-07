@@ -1,12 +1,17 @@
 package application;
 
-import db.DB;
+import db.ConnectionFactory;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public class Program {
     public static void main(String[] args) {
-        Connection conn = DB.getConnection();
-        DB.closeConnection();
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+            System.out.println("Connection established...");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
     }
 }
