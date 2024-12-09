@@ -3,9 +3,16 @@ package model.dao.impl;
 import model.dao.DepartmentDAO;
 import model.entities.Department;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class DepartmentDaoJDBC implements DepartmentDAO {
+
+    private Connection conn;
+
+    public DepartmentDaoJDBC(Connection conn){
+        this.conn = conn;
+    }
 
     @Override
     public void insert(Department department) {
