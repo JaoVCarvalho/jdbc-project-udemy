@@ -32,5 +32,13 @@ public class Program {
         System.out.println(DaoFactory.createSellerDao().findById(seller.getId()));
         System.out.println("\n=========================\n");
 
+        System.out.println("=== TEST 04: update ===");
+        seller = DaoFactory.createSellerDao().findById(8);
+        seller.setName("Bobby Fischer");
+        seller.setEmail("bobbyfischer@gmail.com");
+        DaoFactory.createSellerDao().update(seller);
+        System.out.println("Update completed!");
+        System.out.println("\n=========================\n");
+
     }
 }
