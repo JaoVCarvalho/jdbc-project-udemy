@@ -72,6 +72,19 @@ public class SellerDaoJDBC implements SellerDAO {
     @Override
     public void deleteById(Integer id) {
 
+        String sql = "DELETE FROM seller WHERE Id = ?";
+
+        try(PreparedStatement ps = conn.prepareStatement(sql)){
+
+            ps.setInt(1, id);
+
+            // Por padrão, o JDBC irá executar esse comando existindo ou não alguma entidade relacionada ao ID
+            // Caso sejá necessário verificar se existe alguma entidade na tabela com aquele ID, basta fazer uma verificação com if e exceção
+            ps.executeUpdate();
+
+        } catch (SQLException e){
+            throw new DatabaseConnectionException(e.getMessage());
+        }
     }
 
     @Override
@@ -134,6 +147,16 @@ public class SellerDaoJDBC implements SellerDAO {
             throw new DatabaseConnectionException(e.getMessage());
         }
 
+    }
+
+    public void close() {
+        try {
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (SQLException e) {
+            throw new DatabaseConnectionException("Error closing connection: " + e.getMessage());
+        }
     }
 
     private Department createDepartment(ResultSet rs) throws SQLException{

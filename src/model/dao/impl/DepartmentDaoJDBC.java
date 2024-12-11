@@ -38,4 +38,9 @@ public class DepartmentDaoJDBC implements DepartmentDAO {
     public List<Department> findAll() {
         return List.of();
     }
+
+    @Override
+    public void close() {
+
+    }
 }
